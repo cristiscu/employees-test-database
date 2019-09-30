@@ -4,10 +4,10 @@
 
 DROP USER EmployeesQX CASCADE;
 CREATE USER EmployeesQX
-IDENTIFIED BY queryX30
-DEFAULT TABLESPACE users
-TEMPORARY TABLESPACE temp
-QUOTA 10M ON users;
+   IDENTIFIED BY queryX30
+   DEFAULT TABLESPACE users
+   TEMPORARY TABLESPACE temp
+   QUOTA 10M ON users;
 
 GRANT connect to EmployeesQX;
 GRANT resource to EmployeesQX;
@@ -24,6 +24,11 @@ CREATE TABLE "dept" (
    
    PRIMARY KEY ("DEPTNO")
 );
+
+COMMENT ON TABLE "dept" IS 'All company''s departments, with employees';
+COMMENT ON COLUMN "dept"."DEPTNO" IS 'Department''s identification number';
+COMMENT ON COLUMN "dept"."DNAME" IS 'Name of the current department';
+COMMENT ON COLUMN "dept"."LOC" IS 'Location of the current department';
 
 INSERT INTO "dept" VALUES (10, 'ACCOUNTING', 'NEW YORK');
 INSERT INTO "dept" VALUES (20, 'RESEARCH', 'DALLAS');
@@ -94,6 +99,8 @@ SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
 FROM "emp" e LEFT JOIN "emp" m ON e."MGR" = m."EMPNO"
 ORDER BY m."ENAME", e."ENAME";
 
+COMMENT ON TABLE "Managers" IS 'Pairs of manager-subordinate names';
+
 
 CREATE TABLE "datatypes" (
 	"INT_" NUMBER(*,0) DEFAULT 21321 NOT NULL ENABLE, 
@@ -143,10 +150,9 @@ CREATE TABLE "datatypes" (
 INSERT INTO "datatypes" (VAR_CHAR2, NUMBER_, DATE_, B_DOUBLE, B_FLOAT, CHAR_, CHAR_VAR, CHARACTER_,
    CHARACTER_VAR, DEC_, DECIMAL_, D_PRECISION, FLOAT_, INT_, INTEGER_, LONG_,
    NATIONAL_CHAR, NATIONAL_CHAR_VAR, NCHAR_VARY, VARCHAR_, SMALL_INT, NUMERIC_) 
-   VALUES ('asda', '234', TO_DATE('2012-04-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
-   '23423', '324.44', 'e', 'eee', 't', 'ttt', '324', '342', '12321.33', '333.33',
-   '33333', '3333333', '3321321', 'd', 'ddd', 'fff', 'ffff', '44', '223423');
-
+   VALUES ('asda', 234, TO_DATE('2012-04-04 00:00:00', 'YYYY-MM-DD HH24:MI:SS'),
+   23423, 324.44, 'e', 'eee', 't', 'ttt', 324, 342, 12321.33, 333.33,
+   33333, 3333333, '3321321', 'd', 'ddd', 'fff', 'ffff', 44, 223423);
    
 COMMIT;
 EXIT;

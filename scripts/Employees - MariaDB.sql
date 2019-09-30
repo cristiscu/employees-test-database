@@ -7,12 +7,14 @@ CREATE SCHEMA `EmployeesQX`;
 USE `EmployeesQX`;
 
 CREATE TABLE `dept` (
-   `DEPTNO` integer NOT NULL,
-   `DNAME` varchar(20) NOT NULL,
-   `LOC` varchar(20) NOT NULL,
+   `DEPTNO` integer NOT NULL COMMENT 'Department\'s identification number',
+   `DNAME` varchar(20) NOT NULL COMMENT 'Name of the current department',
+   `LOC` varchar(20) NOT NULL COMMENT 'Location of the current department',
    
    PRIMARY KEY (`DEPTNO`)
-);
+) COMMENT 'Company departments, with employees';
+
+ALTER TABLE `dept` COMMENT 'All company\'s departments, with employees';
 
 INSERT INTO `dept` VALUES (10, 'ACCOUNTING', 'NEW YORK');
 INSERT INTO `dept` VALUES (20, 'RESEARCH', 'DALLAS');

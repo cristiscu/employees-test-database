@@ -2,6 +2,12 @@
 -- Use DBeaver or another DB2 administrator.
 -- Create an EmployeesQX database, then run this script.
 
+-- DROP TABLE "datatypes";
+-- DROP VIEW "Managers";
+-- DROP TABLE "proj";
+-- DROP TABLE "emp";
+-- DROP TABLE "dept";
+
 CREATE TABLE "dept" (
    "DEPTNO" integer NOT NULL,
    "DNAME" varchar(20) NOT NULL,
@@ -9,6 +15,11 @@ CREATE TABLE "dept" (
    
    PRIMARY KEY ("DEPTNO")
 );
+
+COMMENT ON TABLE "dept" IS 'All company''s departments, with employees';
+COMMENT ON COLUMN "dept"."DEPTNO" IS 'Department''s identification number';
+COMMENT ON COLUMN "dept"."DNAME" IS 'Name of the current department';
+COMMENT ON COLUMN "dept"."LOC" IS 'Location of the current department';
 
 INSERT INTO "dept" VALUES (10, 'ACCOUNTING', 'NEW YORK');
 INSERT INTO "dept" VALUES (20, 'RESEARCH', 'DALLAS');
