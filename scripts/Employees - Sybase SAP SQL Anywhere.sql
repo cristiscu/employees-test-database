@@ -2,8 +2,9 @@
 -- Use SQL Central or another Sybase/SAP SQL Anywhere administrator.
 -- Create an EmployeesQX database, then run this script. 
 
-DROP TABLE IF EXISTS "datatypes";
 DROP VIEW IF EXISTS "Managers";
+DROP MATERIALIZED VIEW IF EXISTS "Materialized";
+DROP TABLE IF EXISTS "datatypes";
 DROP TABLE IF EXISTS "proj";
 DROP TABLE IF EXISTS "emp";
 DROP TABLE IF EXISTS "dept";
@@ -85,12 +86,18 @@ INSERT INTO "proj" VALUES (9, 7934, '2005-06-24', '2005-06-27');
 INSERT INTO "proj" VALUES (6, 7934, '2005-06-21', '2005-06-23');
 
 
-CREATE VIEW "Managers" AS 
-SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
-FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO"
-ORDER BY m."ENAME", e."ENAME";
+CREATE VIEW "Managers"
+   AS SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
+   FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO"
+   ORDER BY m."ENAME", e."ENAME";
 
 COMMENT ON VIEW "Managers" IS 'Pairs of manager-subordinate names';
+
+CREATE MATERIALIZED VIEW "Materialized"
+   AS SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
+   FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO"
+   ORDER BY m."ENAME", e."ENAME";
+REFRESH MATERIALIZED VIEW "Materialized";
 
 
 CREATE TABLE "datatypes" (

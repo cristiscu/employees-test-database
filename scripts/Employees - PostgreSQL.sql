@@ -86,107 +86,111 @@ INSERT INTO "proj" VALUES (9, 7934, '2005-06-24', '2005-06-27');
 INSERT INTO "proj" VALUES (6, 7934, '2005-06-21', '2005-06-23');
 
 
-CREATE VIEW "Managers" AS 
-SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
-FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO"
-ORDER BY m."ENAME", e."ENAME";
+CREATE VIEW "Managers"
+   AS SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
+   FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO"
+   ORDER BY m."ENAME", e."ENAME";
 
 COMMENT ON VIEW "Managers" IS 'Pairs of manager-subordinate names';
+
+CREATE MATERIALIZED VIEW "Materialized"
+   AS SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
+   FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO"
+   ORDER BY m."ENAME", e."ENAME";
 
 
 CREATE TYPE "mood" AS ENUM ('sad', 'ok', 'happy');
 CREATE TABLE "datatypes" (
-
-  "INTEGER_" integer NOT NULL,
-  "INT_" int,
-  "INT_4" int4,
-  "SMALL_INT" smallint DEFAULT 23,
-  "INT_2" int2,
-  "BIG_INT" bigint,
-  "INT_8" int8,
-  "SERIAL_" serial,
-  "SMALL_SERIAL" smallserial,
-  "SERIAL_2" serial2,
-  "BIG_SERIAL" bigserial,
-  "SERIAL_8" serial8,
-  "BIT_" bit(1),
-  "BIT_VARYING" bit varying(5),
-  "VAR_BIT" varbit(5),
-  "BOOLEAN_" boolean,
-  "BOOL_" bool,
-  "MONEY_" money,
-  "REAL_" real DEFAULT 45.55,
-  "FLOAT_4" float4,
-  "DOUBLE_PRECISION" double precision,
-  "FLOAT_8" float8,
-  "DECIMAL_" decimal(9,2),
-  "NUMERIC_" numeric(7,2),
-  "ENUM_" mood DEFAULT 'ok',
+   "INTEGER_" integer NOT NULL,
+   "INT_" int,
+   "INT_4" int4,
+   "SMALL_INT" smallint DEFAULT 23,
+   "INT_2" int2,
+   "BIG_INT" bigint,
+   "INT_8" int8,
+   "SERIAL_" serial,
+   "SMALL_SERIAL" smallserial,
+   "SERIAL_2" serial2,
+   "BIG_SERIAL" bigserial,
+   "SERIAL_8" serial8,
+   "BIT_" bit(1),
+   "BIT_VARYING" bit varying(5),
+   "VAR_BIT" varbit(5),
+   "BOOLEAN_" boolean,
+   "BOOL_" bool,
+   "MONEY_" money,
+   "REAL_" real DEFAULT 45.55,
+   "FLOAT_4" float4,
+   "DOUBLE_PRECISION" double precision,
+   "FLOAT_8" float8,
+   "DECIMAL_" decimal(9,2),
+   "NUMERIC_" numeric(7,2),
+   "ENUM_" mood DEFAULT 'ok',
   
-  "CHARACTER_" character(1),
-  "CHAR_" char,
-  "VARCHAR_" varchar(20),
-  "CHARACTER_VARYING" character varying(20),
-  "TEXT_" text,
+   "CHARACTER_" character(1),
+   "CHAR_" char,
+   "VARCHAR_" varchar(20),
+   "CHARACTER_VARYING" character varying(20),
+   "TEXT_" text,
   
-  "DATE_" date,
-  "TIME_" time,
-  "TIME_WOTZ" time(6) without time zone,
-  "TIME_WTZ" time(6) with time zone,
-  "TIME_TZ" timetz,
-  "TIMESTAMP_" timestamp,
-  "TIMESTAMP_WTZ" timestamp(6) with time zone,
-  "TIMESTAMP_TZ" timestamptz,
-  "ABS_TIME" abstime,
-  "REL_TIME" reltime,
-  "INTERVAL_" interval(6),
+   "DATE_" date,
+   "TIME_" time,
+   "TIME_WOTZ" time(6) without time zone,
+   "TIME_WTZ" time(6) with time zone,
+   "TIME_TZ" timetz,
+   "TIMESTAMP_" timestamp,
+   "TIMESTAMP_WTZ" timestamp(6) with time zone,
+   "TIMESTAMP_TZ" timestamptz,
+   "ABS_TIME" abstime,
+   "REL_TIME" reltime,
+   "INTERVAL_" interval(6),
 
-  "INT4_RANGE" int4range,
-  "INT8_RANGE" int8range ,
-  "NUM_RANGE" numrange,
-  "TS_RANGE" tsrange ,
-  "TSTZ_RANGE" tstzrange ,
-  "DATE_RANGE" daterange,
+   "INT4_RANGE" int4range,
+   "INT8_RANGE" int8range ,
+   "NUM_RANGE" numrange,
+   "TS_RANGE" tsrange ,
+   "TSTZ_RANGE" tstzrange ,
+   "DATE_RANGE" daterange,
 
-  "BYTEA_" bytea,
-  "TXID_SNAPSHOT_" txid_snapshot,
+   "BYTEA_" bytea,
+   "TXID_SNAPSHOT_" txid_snapshot,
  
-  "POINT_" point,
-  "LINE_" line,
-  "LSEG_" lseg,
-  "BOX_" box,
-  "PATH_" path,
-  "POLYGON_" polygon,
-  "CIRCLE_" circle,
+   "POINT_" point,
+   "LINE_" line,
+   "LSEG_" lseg,
+   "BOX_" box,
+   "PATH_" path,
+   "POLYGON_" polygon,
+   "CIRCLE_" circle,
 
-  "TS_VECTOR" tsvector,
-  "TS_QUERY" tsquery,
+   "TS_VECTOR" tsvector,
+   "TS_QUERY" tsquery,
 
-  "CIDR_" cidr,
-  "INET_" inet,
-  "MACADDR_" macaddr,
+   "CIDR_" cidr,
+   "INET_" inet,
+   "MACADDR_" macaddr,
 
-  "UUID_" uuid,
-  "OID_" oid,
-  "CID_" cid,
-  "REG_PROC" regproc,
-  "REG_PROCEDURE" regprocedure,
-  "REG_OPER" regoper,
-  "REG_OPERATOR" regoperator,
-  "REG_CLASS" regclass,
-  "REG_TYPE" regtype,
+   "UUID_" uuid,
+   "OID_" oid,
+   "CID_" cid,
+   "REG_PROC" regproc,
+   "REG_PROCEDURE" regprocedure,
+   "REG_OPER" regoper,
+   "REG_OPERATOR" regoperator,
+   "REG_CLASS" regclass,
+   "REG_TYPE" regtype,
   
-  "JSON_" json,
-  "XML_" xml,
+   "JSON_" json,
+   "XML_" xml,
   
-  "INT_ARRAY" int[],
-  "CHAR_ARRAY" char(1)[],
-  "VARCHAR_ARRAY" varchar(10)[],
+   "INT_ARRAY" int[],
+   "CHAR_ARRAY" char(1)[],
+   "VARCHAR_ARRAY" varchar(10)[],
   
-  PRIMARY KEY ("INTEGER_")
+   PRIMARY KEY ("INTEGER_")
 );
 
 INSERT INTO "datatypes" ("INTEGER_", "CHAR_", "BIG_INT", "CHARACTER_", "CHARACTER_VARYING",
-  "DATE_", "DOUBLE_PRECISION", "MONEY_", "NUMERIC_", "REAL_", "SMALL_INT", "INT_ARRAY")
+   "DATE_", "DOUBLE_PRECISION", "MONEY_", "NUMERIC_", "REAL_", "SMALL_INT", "INT_ARRAY")
    VALUES(55, 'A', 43543, 'c', 'asdas', '2016-01-02', 33.444, 33.44, 3587, 22.01, 12, array[3,7,8,11]);
 

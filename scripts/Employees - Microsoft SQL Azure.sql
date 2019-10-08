@@ -88,52 +88,60 @@ SELECT m.[ENAME] AS [Manager], e.[ENAME] AS [Employee]
 FROM [dbo].[emp] AS e LEFT JOIN [dbo].[emp] AS m ON e.[MGR] = m.[EMPNO];
 GO
 
+CREATE VIEW [Materialized] WITH SCHEMABINDING
+   AS SELECT m.[ENAME] AS [Manager]
+   FROM [dbo].[emp] AS m;
+GO
+CREATE UNIQUE CLUSTERED INDEX [IDX_Materialized]
+   ON [dbo].[Materialized] ([Manager]);
+GO
+
 
 CREATE TABLE [datatypes] (
 	
-	[INT_] int NOT NULL DEFAULT 2312,
+   [INT_] int NOT NULL DEFAULT 2312,
 	
-	[TINY_INT] tinyint DEFAULT 3,
-	[SMALL_INT] smallint DEFAULT 232,
-	[BIG_INT] bigint,
-	[BIT_] bit DEFAULT 0,
-	[DECIMAL_] decimal(18, 0),
-	[NUMERIC_] numeric(18, 2) DEFAULT 234234,
-	[FLOAT_] float DEFAULT 444.44,
-	[REAL_] real,
-	[SMALL_MONEY] smallmoney DEFAULT 11.23,
-	[MONEY_] money DEFAULT 22.33,
+   [TINY_INT] tinyint DEFAULT 3,
+   [SMALL_INT] smallint DEFAULT 232,
+   [BIG_INT] bigint,
+   [BIT_] bit DEFAULT 0,
+   [DECIMAL_] decimal(18, 0),
+   [NUMERIC_] numeric(18, 2) DEFAULT 234234,
+   [FLOAT_] float DEFAULT 444.44,
+   [REAL_] real,
+   [SMALL_MONEY] smallmoney DEFAULT 11.23,
+   [MONEY_] money DEFAULT 22.33,
 
-	[CHAR_] char(10) DEFAULT 'D',
-	[NCHAR_] nchar(10) DEFAULT N'D',
-	[VAR_CHAR] varchar(50) DEFAULT 'zxcxcvxvcxvxv',
-	[VAR_CHAR_MAX] varchar(max),
-	[NVARCHAR_] nvarchar(50) DEFAULT N'ASDASD',
-	[NVARCHAR_MAX] nvarchar(max),
-	[TEXT_] text,
-	[NTEXT_] ntext,
+   [CHAR_] char(10) DEFAULT 'D',
+   [NCHAR_] nchar(10) DEFAULT N'D',
+   [VAR_CHAR] varchar(50) DEFAULT 'zxcxcvxvcxvxv',
+   [VAR_CHAR_MAX] varchar(max),
+   [NVARCHAR_] nvarchar(50) DEFAULT N'ASDASD',
+   [NVARCHAR_MAX] nvarchar(max),
+   [TEXT_] text,
+   [NTEXT_] ntext,
 	
-	[DATE_] date,
-	[SMALL_DT] smalldatetime,
-	[TIME_] time(7),
-	[TIMESTAMP_] timestamp,
-	[DATETIME_] datetime,
-	[DATETIME2_] datetime2(7) DEFAULT '2012-03-04',
-	[DATETIME_OFF] datetimeoffset(7),
+   [DATE_] date,
+   [SMALL_DT] smalldatetime,
+   [TIME_] time(7),
+   [TIMESTAMP_] timestamp,
+   [DATETIME_] datetime,
+   [DATETIME2_] datetime2(7) DEFAULT '2012-03-04',
+   [DATETIME_OFF] datetimeoffset(7),
 	
-	[BINARY_] binary(50),
-	[VARBIN] varbinary(50),
-	[VARBIN_MAX] varbinary(max),
-	[IMAGE_] image,
+   [BINARY_] binary(50),
+   [VARBIN] varbinary(50),
+   [VARBIN_MAX] varbinary(max),
+   [IMAGE_] image,
 	
-	[GEOGRAPHY_] geography,
-	[GEOMETRY_] geometry,
-	[HIER_ID] hierarchyid,
-	[SQL_VAR] sql_variant,
-	[UID_] uniqueidentifier,
-	[XML_] xml,
+   [GEOGRAPHY_] geography,
+   [GEOMETRY_] geometry,
+   [HIER_ID] hierarchyid,
+   [SQL_VAR] sql_variant,
+   [UID_] uniqueidentifier,
+   [XML_] xml,
 	
-	PRIMARY KEY ([INT_]) 
+   PRIMARY KEY ([INT_]) 
 );
 GO
 

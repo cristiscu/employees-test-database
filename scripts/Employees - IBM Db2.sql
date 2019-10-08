@@ -2,8 +2,9 @@
 -- Use DBeaver or another DB2 administrator.
 -- Create an EmployeesQX database, then run this script.
 
--- DROP TABLE "datatypes";
 -- DROP VIEW "Managers";
+-- DROP TABLE "Materialized";
+-- DROP TABLE "datatypes";
 -- DROP TABLE "proj";
 -- DROP TABLE "emp";
 -- DROP TABLE "dept";
@@ -85,9 +86,16 @@ INSERT INTO "proj" VALUES (9, 7934, '2005-06-24', '2005-06-27');
 INSERT INTO "proj" VALUES (6, 7934, '2005-06-21', '2005-06-23');
 
 
-CREATE VIEW "Managers" AS 
-SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
-FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO";
+CREATE VIEW "Managers"
+   AS SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
+   FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO";
+
+CREATE TABLE "Materialized" ("Manager", "Employee") AS
+   (SELECT m."ENAME" AS "Manager", e."ENAME" AS "Employee"
+   FROM "emp" AS e LEFT JOIN "emp" AS m ON e."MGR" = m."EMPNO")
+   DATA INITIALLY DEFERRED REFRESH DEFERRED
+   MAINTAINED BY SYSTEM ENABLE QUERY OPTIMIZATION;
+REFRESH TABLE "Materialized";
 
 
 CREATE TABLE "datatypes" (
