@@ -3,6 +3,12 @@
 -- Create an EmployeesQX database, then run this script.
 -- You can also connect to the ready-to-use EmployeesQX.db file.
 
+-- DROP TABLE "datatypes";
+-- DROP VIEW "Managers";
+-- DROP TABLE "proj";
+-- DROP TABLE "emp";
+-- DROP TABLE "dept";
+
 CREATE TABLE "dept" (
    "DEPTNO" integer NOT NULL,
    "DNAME" varchar(20) NOT NULL,
@@ -28,8 +34,12 @@ CREATE TABLE "emp" (
    "DEPTNO" integer NOT NULL,
    
    PRIMARY KEY ("EMPNO"),
-   CONSTRAINT "fk_MGR" FOREIGN KEY ("MGR") REFERENCES "emp" ("EMPNO"),
+   CONSTRAINT "fk_MGR" FOREIGN KEY ("MGR") REFERENCES "emp" ("EMPNO")
+      ON DELETE SET NULL
+      ON UPDATE CASCADE,
    CONSTRAINT "fk_DEPTNO" FOREIGN KEY ("DEPTNO") REFERENCES "dept" ("DEPTNO")
+      ON DELETE RESTRICT
+	  ON UPDATE NO ACTION
 );
 
 INSERT INTO "emp" VALUES (7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000, NULL, 10);
@@ -56,6 +66,8 @@ CREATE TABLE "proj" (
    
    PRIMARY KEY ("PROJID"),
    CONSTRAINT "fk_PROJ" FOREIGN KEY ("EMPNO") REFERENCES "emp" ("EMPNO")
+      ON DELETE NO ACTION
+      ON UPDATE CASCADE
 );
 
 INSERT INTO "proj" VALUES (1, 7782, '2005-06-16', '2005-06-18');

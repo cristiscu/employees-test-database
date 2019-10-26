@@ -1,10 +1,14 @@
 -- EmployeesQX - Amazon Aurora.sql
--- Use MySQL Workbench or another MySQL administrator. Run this script.
--- It should create an EmployeesQX database schema.
+-- Create an EmployeesQX Aurora database in AWS RDS.
+-- Use MySQL Workbench or another tool to run this script.
 
-DROP SCHEMA IF EXISTS `EmployeesQX`;
-CREATE SCHEMA `EmployeesQX`;
 USE `EmployeesQX`;
+
+DROP TABLE IF EXISTS `datatypes`;
+DROP VIEW IF EXISTS `Managers`;
+DROP TABLE IF EXISTS `proj`;
+DROP TABLE IF EXISTS `emp`;
+DROP TABLE IF EXISTS `dept`;
 
 CREATE TABLE `dept` (
    `DEPTNO` integer NOT NULL COMMENT 'Department\'s identification number',
@@ -33,8 +37,12 @@ CREATE TABLE `emp` (
    `DEPTNO` integer NOT NULL,
    
    PRIMARY KEY (`EMPNO`),
-   CONSTRAINT `fk_MGR` FOREIGN KEY (`MGR`) REFERENCES `emp` (`EMPNO`),
+   CONSTRAINT `fk_MGR` FOREIGN KEY (`MGR`) REFERENCES `emp` (`EMPNO`)
+      ON DELETE SET NULL
+	  ON UPDATE CASCADE,
    CONSTRAINT `fk_DEPTNO` FOREIGN KEY (`DEPTNO`) REFERENCES `dept` (`DEPTNO`)
+      ON DELETE RESTRICT
+	  ON UPDATE NO ACTION
 );
 
 INSERT INTO `emp` VALUES (7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000, NULL, 10);
@@ -61,6 +69,8 @@ CREATE TABLE `proj` (
    
    PRIMARY KEY (`PROJID`),
    CONSTRAINT `fk_PROJ` FOREIGN KEY (`EMPNO`) REFERENCES `emp` (`EMPNO`)
+      ON DELETE NO ACTION
+	  ON UPDATE CASCADE
 );
 
 INSERT INTO `proj` VALUES (1, 7782, '2005-06-16', '2005-06-18');
@@ -81,9 +91,9 @@ INSERT INTO `proj` VALUES (6, 7934, '2005-06-21', '2005-06-23');
 
 
 CREATE VIEW `Managers` AS 
-SELECT m.`ENAME` AS `Manager`, e.`ENAME` AS `Employee`
-FROM `emp` AS e LEFT JOIN `emp` AS m ON e.`MGR` = m.`EMPNO`
-ORDER BY m.`ENAME`, e.`ENAME`;
+   SELECT m.`ENAME` AS `Manager`, e.`ENAME` AS `Employee`
+   FROM `emp` AS e LEFT JOIN `emp` AS m ON e.`MGR` = m.`EMPNO`
+   ORDER BY m.`ENAME`, e.`ENAME`;
 
 
 CREATE TABLE `datatypes` (

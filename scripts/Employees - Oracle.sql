@@ -18,6 +18,13 @@ GRANT create materialized view TO EmployeesQX;
 
 CONN EmployeesQX/queryX30
 
+-- DROP TABLE "datatypes";
+-- DROP VIEW "Managers";
+-- DROP MATERIALIZED VIEW "Materialized";
+-- DROP TABLE "proj";
+-- DROP TABLE "emp";
+-- DROP TABLE "dept";
+
 CREATE TABLE "dept" (
    "DEPTNO" integer NOT NULL,
    "DNAME" VARCHAR2(20) NOT NULL,
@@ -48,7 +55,8 @@ CREATE TABLE "emp" (
    "DEPTNO" integer NOT NULL,
    
    PRIMARY KEY ("EMPNO"),
-   CONSTRAINT "fk_MGR" FOREIGN KEY ("MGR") REFERENCES "emp" ("EMPNO"),
+   CONSTRAINT "fk_MGR" FOREIGN KEY ("MGR") REFERENCES "emp" ("EMPNO")
+      ON DELETE SET NULL,
    CONSTRAINT "fk_DEPTNO" FOREIGN KEY ("DEPTNO") REFERENCES "dept" ("DEPTNO")
 );
 
@@ -76,6 +84,7 @@ CREATE TABLE "proj" (
    
    PRIMARY KEY ("PROJID"),
    CONSTRAINT "fk_PROJ" FOREIGN KEY ("EMPNO") REFERENCES "emp" ("EMPNO")
+      ON DELETE CASCADE
 );
 
 INSERT INTO "proj" VALUES (1, 7782, TO_DATE('2005-06-16', 'YYYY-MM-DD'), TO_DATE('2005-06-18', 'YYYY-MM-DD'));
