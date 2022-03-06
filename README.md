@@ -8,6 +8,7 @@ This shared repository makes it easy to download ready-to-use database files, wh
 
 Before loading and running the SQL scripts with a specific tool, you may already have to create manually a database, user or schema, with proper access rights, and log in with the new credentials. If that's the case, comment-out the first few lines related to these database objects. Checking and dropping existing tables can be also ignored, for a brand new database.
 
+ - **Snowflake** - added in March 2022. Can use the Snowflake web UI to run the script file. It creates the database, the tables and other database objects, foreign key constraints, and populates the tables. You should be able to connect with either username/password, or SSO, Key-Pair or OAuth.
  - **Oracle** -  since version 10g Rel1 to 18c. Can use the free SQL Developer to create a new EmployeesQX username/schema with enough access rights, then use it to run the script. Comment-out the first few lines, when you do this.
  - **IBM Db2** - since version 10.5 to 11.1. Can use DB2 Lite on Cloud for a free limited remote service, used for development and evaluation. You'll have to confirm renewal every 30 days, or the database is deleted automatically afetr 60 days. Run the script after you create the remote database.
  - **Microsoft SQL Server** -  since version 2008 to 2017. Can use the free SSMS (SQL Server Management Studio) to manually create an EmployeesQX database first, with appropriate access rights.
